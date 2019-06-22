@@ -1,0 +1,765 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc} 
+\usepackage[russian]{babel}
+
+\usepackage{listings}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{breqn}
+% allow utf-8 input
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{subcaption}
+\usepackage[labelformat=parens,labelsep=quad,skip=3pt]{caption}
+\usepackage{graphicx}
+\usepackage{color}
+
+\usepackage{mathtools}
+
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=2cm}% левое поле
+\geometry{right=2cm}% правое поле
+\geometry{top=3cm}% верхнее поле
+\geometry{bottom=2cm}% нижнее поле
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{definition}{Опредление}
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+
+\addto\captionsrussian{\def\refname{Список используемой литературы}}
+
+\newcounter{totreferences}
+
+\pretocmd{\bibitem}{\addtocounter{totreferences}{1}}{}{}
+
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12} 
+
+\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}
+
+\title{Заголовок}
+
+\begin{document}
+
+\tableofcontents
+
+\newpage
+
+\section{Введение}
+
+Целью данного проекта является расчет некоторых параметров открытого планарного диэлектрического волновода. В ходе работы над проектом я планирую взять на себя задачи по программированию и формированию отчетов. Ожидаю, что в ходе командной работы над проектом мы научимся координировать свои усилия, разделять задачи, управлять временем и рисками. Из практических навыков планирую освоить работу в пакетами компьютерной алгебры и символьных вычислений, и навык чтения литературы по тематику физических исследований и математического моделирования.
+
+\newpage
+
+\section{Теоретическая часть}
+
+Линза Люнеберга — линза, в которой показатель преломления не является постоянным, а изменяется по некоторому закону в зависимости от расстояния от центра в сферических или от оси в цилиндрических линзах. Обычно закон изменения показателя преломления подбирается таким образом, чтобы при прохождении линзы параллельные лучи фокусировались в одной точке на поверхности линзы, а испущенные точечным источником на поверхности — формировали параллельный пучок.
+
+Подобная конструкция линз была впервые предложена немецким/американским математиком Рудольфом Люнебергом.\\[10pt]
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=120]{image3.png}
+    \caption{}
+    \label{tok_per_tweet}
+\end{figure}
+
+Линзы Люнеберга широко используются в СВЧ-технике. Одним из таких использований является создание сильно отражающих радиоволны объектов. В частности, линзы Люнеберга используются в ракетах-мишенях для имитации эффективной площади рассеяния реальных целей с бо́льшими размерами (например, боевых самолётов].
+
+Использованию подобных линз в оптической технике препятствуют технические сложности изготовления линз с переменным показателем преломления, что определяет их высокую стоимость. Иногда для упрощения технологии производства подобные линзы собирают из дискретных элементов — небольших кубиков с различными показателями преломления.\\[10pt]
+
+Линза Люнеберга долгое время оставалась не более чем математическим курьёзом, пока в начале 1960-х годов не была использована в качестве формирователя луча в американском радаре AN/SPG-59.
+
+Радар AN/SPG-59 был одним из первых в мире радаров с фазированной антенной решёткой (ФАР). В отличие от современных радаров с ФАР, где пространственная картина луча формируется с помощью управляемых фазовращателей, в радаре AN/SPG-59 использовалась линза Люнеберга, расположенная в надстройке корабля. Выбор этой технологии был обусловлен отсутствием в 1960-х годах компактных и надёжных фазовращателей C-диапазона.
+
+На поверхности линзы располагалось несколько тысяч приёмных и передающих элементов. Когда один из передающих элементов формировал на поверхности линзы сферическую радиоволну, линза преобразовывала её в волну с плоскопараллельными фронтами, фазовая картина которой снималась приёмными элементами и транслировалась на сферический излучатель, расположенный на вершине колоколообразной надстройки. Таким образом, сферический излучатель формировал в пространстве луч, направление которого соответствовало положению на линзе излучающего элемента.
+
+\newpage
+
+\section{Постановка задачи}
+В ТОВЛ Люнеберга параметры проницаемости среды описываются уравнениями Максвелла.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{image2.png}
+    \caption{}
+    \label{tok_per_tweet}
+\end{figure}
+
+\begin{definition}
+{\bf Уравнения Максвелла} — система уравнений в дифференциальной или интегральной форме, описывающих электромагнитное поле и его связь с электрическими зарядами и токами в вакууме и сплошных средах.
+\end{definition}
+
+\subsection{Формулировка Уравнений Максвелла}
+В отсутствии внешних токов данные уравнения записываются в следющей форме\cite{luneberg2010}:
+$$rot \vec{E} = - \frac{\mu}{c} \cdot \frac{\partial \vec{H}}{\partial t}$$
+$$rot \vec{H} = \frac{\varepsilon}{c}\cdot\frac{\partial \vec{E}}{\partial t}$$
+
+Где $\vec{E}$ - напряженность электрического поля, а $\vec{H}$ - напряженность магнитного поля. $c$ - скорость света в вакууме.
+
+\par Поля адабатических мод плавно-нерегулярного волновода, которые и являются решениями уравнений Максвелла, имеют следующий вид:
+
+$$\vec{E}(x, y, z, t) = \vec{E}(x, y, z) \cdot \frac{exp(i \omega t - i \phi(y, z)}{\sqrt{\beta(y, z)}}$$
+
+$$\vec{H}(x, y, z, t) = \vec{H}(x, y, z) \cdot \frac{exp(i \omega t - i \phi(y, z)}{\sqrt{\beta(y, z)}}$$
+
+$$
+\beta(y, z) = \frac{1}{k_0} \sqrt{(\frac{\partial \phi}{\partial y})^2 + (\frac{\partial \phi}{\partial z})^2}$$
+
+Граничные условия:
+\begin{itemize}
+    \item Общие для TE и TM мод:
+    $$\vec{E}_\tau |_{x - 0} = \vec{E}_\tau |_{x + 0}, \vec{H}_\tau |_{x - o} = \vec{H}_\tau|_{x + 0} \eqno(a)$$
+    \item Для TE-моды:
+    $$\vec{H}_z|_{h-0} = \vec{H}_z|_{h+0}, \vec{E}_y|_{h-0} = \vec{E}_y|_{h + 0} \eqno(b)$$
+    \item Для TM-моды:
+    $$\vec{E}_z|_{h-0} = \vec{E}_z|_{h+0}, \vec{H}_y|_{h-0} = \vec{H}_y|_{h + 0} \eqno(c)$$
+    \item Условие на бесконечности:
+    $$|\vec{E}_\tau|_{x \to \pm \infty} < +\infty, |\vec{H}_\tau|_{x \to \pm\infty} < + \infty \eqno(d)$$
+\end{itemize}
+
+Где: $k_0 = \frac{2\pi}{\lambda} = \frac{\omega}{c}$ - модуль волнового вектора. $\lambda$ - длина волны света.
+\subsection{Представление в виде СЛАУ}
+В нулевом приближении асимптотического метода волновые уравнения для мод в каждом слое принимают следующий вид\cite{sevas2013}:
+
+$$\frac{d^{2}E_{z}}{dx^{2}}+k_{0}^{2}\left(\varepsilon _{j}\mu_{j}-\beta ^{2}  \right)E_{z}=0 \eqno(1)$$
+
+$$\frac{d^{2}H_{z}}{dx^{2}}+k_{0}^{2}\left(\varepsilon _{j}\mu _{j}-\beta ^{2} \right)H_{z}=0\eqno(2)$$
+
+$$E_{y}=\frac{1}{k_{0}^{2}\left(\varepsilon \mu -\beta_{z}^{2} \right)}\left(\iota k_{0}\mu \frac{dH_{z}}{dx}+k_{0}^{2}\beta _{y}\beta _{z}E_{z}  \right)\eqno(3)$$
+
+$$H_{y}=\frac{1}{k_{0}^{2}\left(\varepsilon \mu -\beta_{z}^{2} \right)}\left(-k_{0}\beta _{y}\beta _{z}H_{z}-\iota k_{0}\varepsilon \frac{dE_{z}}{dx}  \right)\eqno(4)$$
+
+Выражая через неопредленные коэффициенты решение уравнений (1-4) с учетом граничных условий получим систему линейных алгебраических уравнений для амплитудных коэффициентов. 
+$$
+\mathcal{M}(x, \beta) \cdot A = 0
+$$ 
+Где $A$ - вектор констант $(C_1, \ldots, C_n)$.
+Данная СЛАУ обладает нетривиальным решением в том случае, когда $det\left [ \mathcal{M}(x, \beta)\right ] = 0$.
+
+\subsection{Формулировка задач}
+
+В итоге необходимо решить следующие задачи:
+\begin{enumerate}
+    \item Из решений уравнений (1-4) с учетом граничных условий и условия для существования нетривиального решения вывести зависимость $\beta$ от z при фиксированном d.
+    \item Получить значения неизвестных амплитудных коэффициентов $A = (C_1, \ldots, C_n)$ . Используя их, построить поле для любого из компонентов решения.
+\end{enumerate}
+
+\newpage
+
+\section{Ход решения}
+
+Ход решения поставленных задач состоит из следующих этапов:
+\begin{enumerate}
+    \item Нахождение компонент $E_z, H_z$.
+    \item Нахождение компонент $E_y, H_y$.
+    \item Подстановка компонент в граничные условия, разделение полученных уравнений TE,TM-мод.
+    \item Формирование СЛАУ. Приведение ее к матричному виду: $\mathcal{M}(\beta, d) \cdot A = 0$
+    \item С нахождение зависимости $\beta$ от z.
+    \item Решение СЛАУ. Построение поля для компоненты Hz в слое s.
+\end{enumerate}
+
+Далее подробно опишем действия на каждом шаге. Все вычисления выполнялись с помощью библиотеки для символьных вычислений SymPy версии 1.4 для языка Python версии 3.7.
+
+\subsection{Компоненты $E_z, H_z$}
+Получим компоненты $E_z, H_z$ путем нахождения решений (1), (2) в общем виде:
+
+$$\operatorname{E_{z}}{\left (x \right )} = C_{e1} e^{- \frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}}}{\lambda}} + C_{e2} e^{\frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}}}{\lambda}} \eqno(5)$$
+$$\operatorname{H_{z}}{\left (x \right )} = C_{h1} e^{- \frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}}}{\lambda}} + C_{h2} e^{\frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}}}{\lambda}} \eqno(6)$$
+
+\subsection{Компоненты $E_z, H_z$}
+
+Продифференцируем компоненты $E_z, H_z$, по $z$, и подставим результат в (3), (4) соответственно. Получим:
+$$H_y=\frac{\lambda^{2} \left(- \frac{4 \pi^{2} \beta_{y} \beta_{z} \left(C_{ch1} e^{- \frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} + C_{ch2} e^{\frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}}\right)}{\lambda^{2}} - \frac{2 i \pi \epsilon_{c} \left(- \frac{2 \pi C_{ce1} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} e^{- \frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}}}{\lambda} + \frac{2 \pi C_{ce2} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} e^{\frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}}}{\lambda}\right)}{\lambda}\right)}{4 \pi^{2} \left(- \beta_{z}^{2} + \epsilon_{c} \mu_{c}\right)}\eqno(7)$$
+
+$$E_y=\frac{\lambda^{2} \left(\frac{4 \pi^{2} \beta_{y} \beta_{z} \left(C_{ce1} e^{- \frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} + C_{ce2} e^{\frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}}\right)}{\lambda^{2}} + \frac{2 i \pi \mu_{c} \left(- \frac{2 \pi C_{ch1} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} e^{- \frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}}}{\lambda} + \frac{2 \pi C_{ch2} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} e^{\frac{2 \pi x \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}}}{\lambda}\right)}{\lambda}\right)}{4 \pi^{2} \left(- \beta_{z}^{2} + \epsilon_{c} \mu_{c}\right)}\eqno(8)$$
+
+\subsection{Подстановка компонент в граничные условия, разделение полученных уравнений TE,TM-мод.}
+Имеем уравнения (5-8) в каждом слое (f, s, c) и граничные условия (a-d). Подставим уравнения (5-8) в граничные условия (a-d). Для граничных условий (a-c) заметим, что они эквивалентны следующим уравнениям:
+$$\begin{cases}
+E_y^c = E_y^f\\
+H_y^c = H_y^f
+\end{cases}
+\begin{cases}
+E_y^f = E_y^s \\
+H_y^f = H_y^f
+\end{cases}
+\begin{cases}
+E_z^c = E_z^f \\
+H_z^c = H_z^f
+\end{cases}
+\begin{cases}
+E_z^f = E_z^s \\
+H_z^f = H_z^s
+\end{cases}
+$$
+\par Для выполнения граничных условий на бесконечности (d), необходимо чтобы при $x \to \pm \infty$ компоненты $H_z, E_z$ в слоях $s$ ($+\infty$), $c$ ($-\infty$) стремились к нулю. Это достигается путем обнуления константы при возрастающих коэффициентах.
+
+После подстановки компонент (5-8) в граничные условия, получаем СЛАУ для мод TE, TM. Они выглядят следующим образом:
+$$\begin{cases}
+C_{fe1} + C_{fe2} - C_{se2} = 0\\
+C_{fe1} \beta_{z}^{2} \epsilon_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} - C_{fe1} \epsilon_{f} \epsilon_{s} \mu_{s} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} - C_{fe2} \beta_{z}^{2} \epsilon_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} +\\~~~~~~
+C_{fe2} \epsilon_{f} \epsilon_{s} \mu_{s} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} - i C_{se2} \beta_{z}^{2} \epsilon_{s} \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}} + i C_{se2} \epsilon_{f} \epsilon_{s} \mu_{f} \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}} = 0\\
+C_{ce1} e^{- \frac{2 \pi d \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} - C_{fe1} e^{- \frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} - C_{fe2} e^{\frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} = 0\\
+- 4 i \pi^{2} C_{ce1} \beta^{2} \epsilon_{c} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} e^{- \frac{2 \pi d \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} + 4 i \pi^{2} C_{ce1} \epsilon_{c} \epsilon_{f} \mu_{f} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} \\ ~~~~~~ e^{- \frac{2 \pi d \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} - 4 \pi^{2} C_{fe1} \beta^{2} \epsilon_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{- \frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} + 4 \pi^{2} C_{fe1} \epsilon_{c} \epsilon_{f} \mu_{c} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{- \frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} + 4 \\~~~~~~\pi^{2} C_{fe2} \beta^{2} \epsilon_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{\frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} - 4 \pi^{2} C_{fe2} \epsilon_{c} \epsilon_{f} \mu_{c} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{\frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} = 0
+\end{cases}\eqno(TE)$$
+
+$$\begin{cases}
+C_{fh1} + C_{fh2} - C_{sh2} = 0\\
+- C_{fh1} \beta_{z}^{2} \mu_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} + C_{fh1} \epsilon_{s} \mu_{f} \mu_{s} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} + C_{fh2} \beta_{z}^{2} \mu_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} - C_{fh2} \epsilon_{s} \mu_{f}\\ ~~~~~~ \mu_{s} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} + i C_{sh2} \beta_{z}^{2} \mu_{s} \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}} - i C_{sh2} \epsilon_{f} \mu_{f} \mu_{s} \sqrt{\beta^{2} - \epsilon_{s} \mu_{s}} = 0\\
+C_{ch1} e^{- \frac{2 \pi d \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} - C_{fh1} e^{- \frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} - C_{fh2} e^{\frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} = 0\\
+4 i \pi^{2} C_{ch1} \beta^{2} \mu_{c} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}} e^{- \frac{2 \pi d \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} - 4 i \pi^{2} C_{ch1} \epsilon_{f} \mu_{c} \mu_{f} \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}\\~~~~~~ e^{- \frac{2 \pi d \sqrt{\beta^{2} - \epsilon_{c} \mu_{c}}}{\lambda}} + 4 \pi^{2} C_{fh1} \beta^{2} \mu_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{- \frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} - 4 \pi^{2} C_{fh1} \epsilon_{c} \mu_{c} \mu_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{- \frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} - 4 \pi^{2} C_{fh2} \\~~~~~~ \beta^{2} \mu_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{\frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} + 4 \pi^{2} C_{fh2} \epsilon_{c} \mu_{c} \mu_{f} \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}} e^{\frac{2 i \pi d \sqrt{- \beta^{2} + \epsilon_{f} \mu_{f}}}{\lambda}} = 0
+\end{cases} \eqno(TM) $$
+
+
+\subsection{Приводим СЛАУ к матричному виду $\mathcal{M}(\beta, d) \cdot A = 0$}
+Представим наши системы уранений в матричном виде $\mathcal{M}(x, \beta) \cdot A = 0$. Где вектор неизвестных $A$ - вектор констант. Это было реализованно с помощью метода liner\_eq\_to\_matrix().
+
+\subsection{Через условие $det(\mathcal{M}(\beta, d)) = 0$ ищем значения для $\beta$}
+
+Имеем определители: $$D_{TE} = det(\mathcal{M}_{TE}), D_{TM} = det(\mathcal{M}_{TM})$$
+Уравнения имеют нетривиальное решение при условии $D_{TE} * D_{TM} = 0$. Опишем в общем случае методику нахождения зависимости $\beta(z)$.
+\par По условию $D_i, i \in \{TM, TE\}$ - зависит от двух переменных $d, \beta$, где $d$ - ширина слоя. Для каждого $d_i \in (d_1, d_2, \ldots, d_n)$ зафиксируем $D_i(\beta) = D_i(\beta, d_i)$. Далее, для нахождения $\beta$ решим задачу минимизации $$argmin_{\beta} |D_i(\beta)|^2$$
+
+Модуль используется с целью того, чтобы найти значения $\beta_i$ для $D_i(\beta)$, такие, что $D_i(\beta_i) = 0$
+
+Решая такую задачу для каждого $d_i$ получаем набор пар $$B = \left( \{d_1 \to \beta_1\}, \{d_2 \to \beta_2\}, \ldots, \{d_n \to \beta_n\}  \right )$$
+
+В результате проведенных вычислений получены следующие зависимости.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{final.png}
+    \caption{Графики $\beta$ от $z$ для мод TE, TM (в каждой паре графиков, одущих близко дргу к другу одна линия принадлежит зависимости в моде TE, другая - зависимости в моде TM)}
+    \label{beta_d}
+\end{figure}
+
+Конфигурация вычислений:
+\begin{itemize}
+    \item Диапазон значений $\beta$: $(1.4695, 1.56505)$
+    \item Диапазон значений $d$: $(0.01, 3)$
+    \item Параметр точности вычислений $\epsilon$: $10e-6$
+    \item Алгоритм минимизации: Nelder-Mead \cite{nelder1965simplex}.
+\end{itemize}
+
+\newpage
+
+\section{Заключение}
+
+В процессе проектной работы я брал на себя множество различных задач из разных областей. Среди них: 
+\begin{itemize}
+    \item Программирование математических расчетов в средах SymPy и Wolfram Mathematica.
+    \item Форматирование полученных результатов в виде презентаций.
+    \item Описание математических расчетов в \LaTeX для дальнейшей презентации.
+    \item Изучение профильной литературы и научных статей.
+    \item Консультационная поддержка членов команды.
+\end{itemize}
+
+Я считаю данный тип работы(проектный) крайне полезным для студентов. В результате работы над проектом мною были приобретены навыки работы в команде, презентации результатов, работы с пакетами символьных вычислений, навыки написания и разработки алгоритмов. Мною были обнаружены пробелы в умении управления и планирования временем, но к концу проекта они были восполнены. Хоть и не все из поставленных задач были выполнены, я считаю проект завершенным успешно.
+
+
+
+\newpage
+
+\addcontentsline{toc}{section}{Список используемой литературы}
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+\newpage
+
+\addcontentsline{toc}{section}{Приложения}
+\section*{Приложения}
+\subsection*{A - Исходный код}
+\begin{lstlisting}[language=Python]
+
+# coding: utf-8
+
+# In[1]:
+
+
+import math
+from scipy.optimize import minimize, newton
+import copy
+import mpmath
+
+from joblib import Parallel, delayed
+
+import sympy
+from sympy import Function, dsolve, Eq,
+    Derivative, sin, cos, symbols, pi, I
+from sympy.abc import x, y, z
+
+from numba import jit
+get_ipython().run_line_magic('matplotlib', 'inline')
+sympy.init_session(use_latex=True)
+
+epsilon = symbols("epsilon")
+mu = symbols("mu")
+lambda_ = symbols("lambda") ## длинна волны света 0.55
+k0 = (pi * 2) / lambda_ 
+
+phi = Function("phi")
+betta = symbols("beta", real=True)  # Проницаемость среды
+betta_y = symbols("beta_y")
+betta_z = symbols("beta_z")
+
+betta_y_test = Derivative(phi(y), y) 
+betta_z_test = Derivative(phi(z), y)  
+
+E_z = Function('E_z') 
+H_z = Function('H_z')
+
+epsilon_s = symbols("epsilon_s") 
+mu_s = symbols("mu_s")
+
+Ce_s1 = symbols("C_se1") 
+Ce_s2 = symbols("C_se2")  
+Ch_s1 = symbols("C_sh1") 
+Ch_s2 = symbols("C_sh2") 
+
+eq_s_ez = Derivative(E_z(x), x, x) +
+    (k0**2)*(epsilon_s*mu_s - betta**2)*E_z(x)
+eq_s_hz = Derivative(H_z(x), x, x) +
+    (k0**2)*(epsilon_s*mu_s - betta**2)*H_z(x)
+
+eq_s_ez_sloved = dsolve(eq_s_ez)
+eq_s_hz_sloved = dsolve(eq_s_hz)
+
+eq_s_ez_sloved = eq_s_ez_sloved.subs([["C1", Ce_s1], ["C2", Ce_s2]])
+eq_s_hz_sloved = eq_s_hz_sloved.subs([["C1", Ch_s1], ["C2", Ch_s2]])
+
+
+# In[33]:
+
+
+epsilon_f = symbols("epsilon_f") # Электрическая проницаемость
+mu_f = symbols("mu_f")  # Магнитная проницаемостьт
+
+Ce_f1 = symbols("C_fe1") 
+Ce_f2 = symbols("C_fe2")  
+Ch_f1 = symbols("C_fh1") 
+Ch_f2 = symbols("C_fh2")  
+
+eq_f_ez = Derivative(E_z(x), x, x) +
+    (k0**2)*(epsilon_f*mu_f - betta**2)*E_z(x)
+eq_f_hz = Derivative(H_z(x), x, x) +
+    (k0**2)*(epsilon_f*mu_f - betta**2)*H_z(x)
+
+eq_f_ez_sloved = dsolve(eq_f_ez)
+eq_f_hz_sloved = dsolve(eq_f_hz)
+
+eq_f_ez_sloved = eq_f_ez_sloved.subs([["C1", Ce_f1], ["C2", Ce_f2]])
+eq_f_hz_sloved = eq_f_hz_sloved.subs([["C1", Ch_f1], ["C2", Ch_f2]])
+
+eq_f_hz_sloved = eq_f_hz_sloved.subs({
+    betta:betta*I,
+    epsilon_f:-epsilon_f,
+    pi:pi*I
+})
+
+eq_f_ez_sloved = eq_f_ez_sloved.subs({
+    betta:betta*I,
+    epsilon_f:-epsilon_f,
+    pi:pi*I
+})
+
+epsilon_c = symbols("epsilon_c") # Электрическая проницаемость
+mu_c = symbols("mu_c")  # Магнитная проницаемостьт
+
+Ce_c1 = symbols("C_ce1") 
+Ce_c2 = symbols("C_ce2")  
+Ch_c1 = symbols("C_ch1") 
+Ch_c2 = symbols("C_ch2")  
+
+eq_c_ez = Derivative(E_z(x), x, x) +
+    (k0**2)*(epsilon_c*mu_c - betta**2)*E_z(x)
+eq_c_hz = Derivative(H_z(x), x, x) +
+    (k0**2)*(epsilon_c*mu_c - betta**2)*H_z(x)
+
+eq_c_ez_sloved = dsolve(eq_c_ez)
+eq_c_hz_sloved = dsolve(eq_c_hz)
+
+eq_c_ez_sloved = eq_c_ez_sloved.subs([["C1", Ce_c1], ["C2", Ce_c2]])
+eq_c_hz_sloved = eq_c_hz_sloved.subs([["C1", Ch_c1], ["C2", Ch_c2]])
+
+
+left_part = (1 / ((k0**2)*(epsilon_c*mu_c - betta_z**2)))
+E_y_c = left_part*(I*k0*mu_c*
+    Derivative(H_z(x), x)+(k0**2)*betta_y*betta_z*E_z(x))
+H_y_c = left_part*(-(k0**2)*
+    betta_y*betta_z*H_z(x)-I*k0*epsilon_c*Derivative(E_z(x), x))
+#f
+left_part = (1 / ((k0**2)*
+    (epsilon_f*mu_f - betta_z**2)))
+E_y_f = left_part*(I*k0*mu_f*
+    Derivative(H_z(x), x)+(k0**2)*betta_y*betta_z*E_z(x))
+H_y_f = left_part*(-(k0**2)*
+    betta_y*betta_z*H_z(x)-I*k0*epsilon_f*Derivative(E_z(x), x))
+#s
+left_part = (1 / ((k0**2)*
+    (epsilon_s*mu_s - betta_z**2)))
+E_y_s = left_part*(I*k0*mu_s*
+    Derivative(H_z(x), x)+(k0**2)*betta_y*betta_z*E_z(x))
+H_y_s = left_part*(-(k0**2)*
+    betta_y*betta_z*H_z(x)-I*k0*epsilon_s*Derivative(E_z(x), x))
+
+eq_c_hz_diff = diff(eq_c_hz_sloved.rhs,x)
+eq_s_hz_diff = diff(eq_s_hz_sloved.rhs,x)
+eq_f_hz_diff = diff(eq_f_hz_sloved.rhs,x)
+eq_c_ez_diff = diff(eq_c_ez_sloved.rhs,x)
+eq_s_ez_diff = diff(eq_s_ez_sloved.rhs,x)
+eq_f_ez_diff = diff(eq_f_ez_sloved.rhs,x)
+
+H_y_c = H_y_c.subs({
+    H_z(x) : eq_c_hz_sloved.rhs,
+    Derivative(E_z(x), x) : eq_c_ez_diff,
+})
+
+H_y_f = H_y_f.subs({
+    H_z(x) : eq_f_hz_sloved.rhs,
+    Derivative(E_z(x), x) : eq_f_ez_diff,
+})
+
+H_y_s = H_y_s.subs({
+    H_z(x) : eq_s_hz_sloved.rhs,
+    Derivative(E_z(x), x) : eq_s_ez_diff,
+})
+
+E_y_c = E_y_c.subs({
+    E_z(x) : eq_c_ez_sloved.rhs,
+    Derivative(H_z(x), x) : eq_c_hz_diff,
+})
+
+E_y_f = E_y_f.subs({
+    E_z(x) : eq_f_ez_sloved.rhs,
+    Derivative(H_z(x), x) : eq_f_hz_diff,
+})
+
+E_y_s = E_y_s.subs({
+    E_z(x) : eq_s_ez_sloved.rhs,
+    Derivative(H_z(x), x) : eq_s_hz_diff,
+})
+
+fez_sloved = eq_f_ez_sloved
+fhz_sloved = eq_f_ez_sloved
+
+Ez_cf = Equality(eq_c_ez_sloved.rhs - eq_f_ez_sloved.rhs, 0)
+Ez_fs = Equality(eq_f_ez_sloved.rhs - eq_s_ez_sloved.rhs, 0)
+
+Hz_cf = Equality(eq_c_hz_sloved.rhs - eq_f_hz_sloved.rhs, 0)
+Hz_fs = Equality(eq_f_hz_sloved.rhs - eq_s_hz_sloved.rhs, 0)
+
+Ey_cf = Equality(E_y_c - E_y_f, 0)
+Ey_fs = Equality(E_y_f - E_y_s, 0)
+
+Hy_cf = Equality(H_y_c - H_y_f, 0)
+Hy_fs = Equality(H_y_f - H_y_s, 0)
+
+Ez_fs = Ez_fs.subs({
+    'x': 0, 'beta': betta_z,
+    'C_ce2': 0, 'C_ch2': 0,
+    'C_se1': 0, 'C_sh1': 0
+})
+Hz_fs = Hz_fs.subs({
+    'x': 0, 'beta': betta_z,
+    'C_ce2': 0, 'C_ch2': 0,
+    'C_se1': 0, 'C_sh1': 0
+})
+Ey_fs = Ey_fs.subs({
+    'x': 0, 'beta_y': 0,
+    'beta': betta_z, 'C_ce2': 0,
+    'C_ch2': 0, 'C_se1': 0, 'C_sh1': 0
+})
+Hy_fs = Hy_fs.subs({
+    'x': 0, 'beta_y': 0,
+    'beta': betta_z, 'C_ce2': 0,
+    'C_ch2': 0, 'C_se1': 0, 'C_sh1': 0
+})
+
+d = symbols("d")
+
+Ey_fs_ = Equality(Ey_fs.lhs * 
+    (epsilon_s*mu_s - betta_z**2) * 
+    (((2*pi)*(epsilon_f*mu_f - betta_z**2))), 0)
+.simplify()
+Hy_fs_ = Equality(Hy_fs.lhs * 
+    (epsilon_s*mu_s - betta_z**2) * 
+    (((2*pi)*(epsilon_f*mu_f - betta_z**2))), 0)
+.simplify()
+Ey_cf_ = Equality(Ey_cf.lhs * 
+    (epsilon_c*mu_c - betta_z**2) * 
+    (((2*pi)*(2*pi)*(epsilon_f*mu_f - betta_z**2))), 0)
+.simplify()
+Hy_cf_ = Equality(Hy_cf.lhs * 
+    (epsilon_c*mu_c - betta_z**2) * 
+    (((2*pi)*(2*pi)*(epsilon_f*mu_f - betta_z**2))), 0)
+.simplify()
+
+Ey_fs_new = Equality(Ey_fs_.lhs * 1/(2*pi), 0)
+Hy_fs_new = Equality(Hy_fs_.lhs * 1/(2*pi), 0)
+
+Hy_fs_new.expand()
+
+Ez_cf_kek = Ez_cf.subs({
+    betta_y : 0,
+    Ce_c2 : 0,
+    x : d
+})
+Ez_cf_kek
+Hz_cf_kek = Hz_cf.subs({
+    betta_y : 0,
+    Ch_c2 : 0,
+    x : d
+})
+
+Hy_cf_kek = Hy_cf_.subs({
+    betta_y : 0,
+    Ce_c2 : 0,
+    betta_z : betta,
+    x : d
+})
+Hy_cf_kek_expand = Hy_cf_kek.expand()
+Ey_cf_kek = Ey_cf_.subs({
+    betta_y : 0,
+    Ch_c2 : 0,
+    betta_z : betta,
+    x : d
+})
+Ey_cf_kek_expand = Ey_cf_kek.expand()
+
+L1_kek = sympy.linear_eq_to_matrix(
+    [Ez_fs, Hy_fs_new.expand(), Ez_cf_kek, Hy_cf_kek_expand],
+    Ce_c1, Ce_f1, Ce_f2, Ce_s2
+)[0]
+L2_kek = sympy.linear_eq_to_matrix(
+    [Hz_fs, Ey_fs_new.expand(), Hz_cf_kek, Ey_cf_kek_expand],
+    Ch_c1, Ch_f1, Ch_f2, Ch_s2
+)[0]
+
+L1_kek = L1_kek.subs({
+    mu_c : 1,
+    mu_f : 1,
+    mu_s : 1,
+    lambda_ : 0.55,
+    #h: 2*lambda_,
+    betta_z: betta,
+    epsilon_c : 1,
+    epsilon_f : 1.565 ** 2,
+    epsilon_s : 1.47 ** 2
+})
+
+L2_kek = L2_kek.subs({
+    mu_c : 1,
+    mu_f : 1,
+    mu_s : 1,
+    lambda_ : 0.55,
+    #h: 2*lambda_,
+    betta_z: betta,
+    epsilon_c : 1,
+    epsilon_f : 1.565 ** 2,
+    epsilon_s : 1.47 ** 2
+})
+
+omg = L1_kek.det()
+omg2 = L2_kek.det()
+
+class DBettaAdapter:
+    def __init__(self, left, right, determinant, d_):
+        self.init_right_bound = right
+        self.init_left_bound = left
+        self.raw_deterninant = determinant
+        self.set_d(d_)
+        self.factor = 1
+        self.epsilon = 1e-6
+        self.min = []
+    
+    def set_d(self, d_):
+        self.determinant = self.raw_deterninant.subs({"d":d_})
+        self.d = d_
+
+    def set_bounds(self, left, right):
+        self.right_bound = right
+        self.left_bound = left
+    
+    def func(self, b):
+        b = b[0]
+        eval_ = self.determinant.evalf(subs={betta:b})
+        if b < self.left_bound or b > self.right_bound:
+            return 1000
+        else:
+            ans = mpmath.power(Abs(eval_), 2)
+        return ans * self.factor
+
+    def opt(self):
+        mid = (self.right_bound - self.left_bound)/2 + self.left_bound
+        res = minimize(self.func, [mid], method ="BFGS")#
+        return res
+    
+    def draw_plot(self, num_points=100):
+        #for i in arr:
+        #    res_.append(self.func([i]))
+        arr, step, res_ = self.eval_array(num_points)
+        
+        plt.plot(arr, np.array(res_, dtype=np.float64))
+        plt.xlabel("betta")
+        plt.ylabel('determinant')
+        plt.show()
+    
+    def eval_array(self, num_points=100):
+        res_ = []
+        arr = np.linspace(self.left_bound, self.right_bound, num_points)
+        step = arr[1] - arr[0]
+        for i in arr:
+            res_.append(self.func([i]))
+        return arr, step, np.array(res_)
+    
+    @staticmethod
+    def find_local_min(arr):
+        diff = np.diff(arr)
+        res = []
+        for i in range(len(diff)-1):
+            #print(diff[i], diff[i+1], i)
+            if diff[i]<0 and diff[i+1]>0:
+                res.append(i)
+        return res
+    
+    def get_mins(self, num_points=100):
+        arr, step, res_ = self.eval_array(num_points)
+        init_mins = self.find_local_min(res_)
+        
+        local_mins = []
+        start = copy.deepcopy(self.left_bound)
+        for min_ in init_mins:
+            left_bound = start + min_ * step
+            right_bound = start + (min_ + 3) * step
+            #print(left_bound, right_bound)
+            self.set_bounds(left_bound, right_bound)
+            opt_result = self.opt()
+            local_mins.append([opt_result.x, opt_result.fun])
+        return local_mins
+    
+    def find_min_d_range(self, d_array, num_points=100):
+        result = []
+        for d in d_array:
+            self.set_d(d)
+            self.set_bounds(self.init_left_bound, self.init_right_bound)
+            mins_ = [i[0] for i in self.get_mins(num_points)]
+            result.append([d, mins_])
+        return result
+    
+    def find_min_d_range_parallel(self, d_array, num_points=100):
+        result = Parallel(n_jobs=16)(delayed(self.parallel_adapter)
+            (i, num_points) for i in d_array)
+        return result
+    
+    def parallel_adapter(self, d, num_points=100):
+            self.set_d(d)
+            self.set_bounds(self.init_left_bound, self.init_right_bound)
+            mins_ = self.get_mins(num_points)
+            #mins_ = [i[0] for i in self.get_mins(num_points)]
+            return d, mins_
+
+k = DBettaAdapter(1.4695, 1.56505, omg, 1)
+
+d_arr = np.linspace(0.1, 2, 10)
+
+get_ipython().run_cell_magic(
+    'time', '',
+    'k = DBettaAdapter(1.4695, 1.56505, omg, 1)\nd_arr = 
+    np.linspace(0.01, 3, 150)\nres 
+    = k.find_min_d_range_parallel(d_arr, 150)'
+)
+
+get_ipython().run_cell_magic(
+    'time', '',
+    'k2 = DBettaAdapter(1.4695, 1.56505, omg2, 1)\nd_arr =
+    np.linspace(0.01, 3, 150)\nres2 
+    = k2.find_min_d_range_parallel(d_arr, 150)'
+)
+
+def pad(arr, d_s):
+    target = len(d_s) - len(arr)
+    return d_s[target:], np.pad(np.array(arr), [target, 0], "edge")[target:]
+
+matplotlib.rcParams['figure.dpi'] = 300
+
+def split_increasing_array(arr):
+    res = []
+    new_res = []
+    for i in range(len(arr)-1):
+        if arr[i]>arr[i+1]:
+            new_res.append(arr[i])
+            res.append(new_res)
+            new_res = []
+        else:
+            new_res.append(arr[i])
+    new_res.append(arr[i+1])
+    res.append(new_res)
+    return res
+
+_ = plt.figure(figsize=(15.0, 15.0))
+
+plt.ylim(1.471, 1.56)
+legend = []
+bettas = [[] for _ in range(len(res[-1][-1]))]
+d_s = [i[0] for i in res]
+for d, betta_s in res:
+    for betta_i in range(len(betta_s)):
+        bettas[betta_i].append(betta_s[betta_i][0])
+
+target = list(map(split_increasing_array, bettas))
+for i in range(6):
+    m = []
+    for j in target:
+        try:
+            m.extend(j[i])
+        except: pass
+    d_s = [i[0] for i in res]
+    d_s, pad_ = pad(m, d_s)
+    plt.plot(d_s, pad_)
+    legend.append('TE')
+    
+bettas = [[] for _ in range(len(res2[-1][-1]))]
+d_s = [i[0] for i in res2]
+for d, betta_s in res2:
+    for betta_i in range(len(betta_s)):
+        bettas[betta_i].append(betta_s[betta_i][0])
+
+target = list(map(split_increasing_array, bettas))
+for i in range(6):
+    m = []
+    for j in target:
+        try:
+            m.extend(j[i])
+        except: pass
+    d_s = [i[0] for i in res2]
+    d_s, pad_ = pad(m, d_s)
+    plt.plot(d_s, pad_)
+    legend.append('TM')
+
+plt.legend(legend)
+
+plt.savefig("./final.png")
+
+\end{lstlisting}
+
+\end{document}
